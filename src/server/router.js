@@ -16,4 +16,14 @@ router.set(
   },
 );
 
+router.set(
+  '/color-pie', {
+    method: HttpRouter.METHOD_GET,
+    isExact: true,
+  }, async (req, res) => {
+    const pathToFile = path.join(config.publicFolder, '/index.html');
+    await sendFile(req, res, pathToFile);
+  },
+);
+
 module.exports = router;

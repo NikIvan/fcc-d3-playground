@@ -1,12 +1,11 @@
-export async function getData(url) {
-  let data = null;
+export async function fetchData(url) {
+  let response = null;
 
   try {
-    const response = await fetch(url);
-    data = await response.json();
+    response = await fetch(url);
   } catch (e) {
     console.error(e);
   }
 
-  return data;
+  return response;
 }
