@@ -1,1 +1,1 @@
-export { ColorPie } from './ColorPie.jsx';
+export {ColorPie} from './ColorPie.jsx';
