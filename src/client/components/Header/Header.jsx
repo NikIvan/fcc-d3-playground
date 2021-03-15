@@ -5,6 +5,7 @@ function Header() {
   return (
     <div>
       <Link to="/color-pie">Color Pie</Link>
+      <Link to="/bar-chart">Bar Chart</Link>
     </div>
   );
 }

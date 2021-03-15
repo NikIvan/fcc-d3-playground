@@ -7,7 +7,7 @@ class HttpRouter {
   }
 
   set(path = '', options = {}, handler) {
-    const { method, isExact = false } = options;
+    const {method, isExact = false} = options;
 
     if (method == null) {
       throw new Error('Please, provide route method!');

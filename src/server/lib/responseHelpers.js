@@ -1,5 +1,5 @@
 const path = require('path');
-const { readFile } = require('./fileSystem');
+const {readFile} = require('./fileSystem');
 
 function sendJSON(res, data) {
   const body = JSON.stringify((data));
@@ -17,7 +17,7 @@ function sendJSON(res, data) {
 
 async function sendFile(req, res, pathToFile) {
   try {
-    const { readStream, stats, mimetype } = await readFile(pathToFile);
+    const {readStream, stats, mimetype} = await readFile(pathToFile);
 
     const headers = {
       'Content-Type': `${mimetype}; charset=UTF-8`,
@@ -34,7 +34,7 @@ async function sendFile(req, res, pathToFile) {
 
 async function sendFileAttachment(req, res, pathToFile) {
   try {
-    const { readStream } = await readFile(pathToFile);
+    const {readStream} = await readFile(pathToFile);
 
     const headers = {
       'Content-Type': 'application/octet-stream',

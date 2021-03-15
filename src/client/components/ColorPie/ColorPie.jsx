@@ -13,12 +13,14 @@ const pieArc = arc()
   .innerRadius(0)
   .outerRadius(width);
 
+const colorsUrl = '/database/colors.csv';
+
 function ColorPie() {
   const [colors, setColors] = useState(colorsInitialState);
 
   useEffect(() => {
     async function getColors() {
-      const data = await csv('/database/colors.csv');
+      const data = await csv(colorsUrl);
       console.dir(data);
       // const data = await response.text();
       setColors(data);

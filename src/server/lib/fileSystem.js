@@ -28,7 +28,7 @@ async function readFile(pathToFile) {
   try {
     stats = await fs.promises.stat(pathToFile);
   } catch (err) {
-    console.dir({ err });
+    console.dir({err});
     if (err.code === 'ENOENT') {
       console.log('Cannot find requested file');
     } else {
