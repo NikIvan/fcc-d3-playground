@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Lato';
+  src: url('./assets/fonts/Lato/Lato-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight:  400;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -8,11 +15,8 @@
 }
 
 body {
-  background: url("./assets/kindajean.png") repeat;
+  background: url("./assets/images/kindajean.png") repeat;
   width: 100vw;
   height: 100vh;
-}
-
-#svg {
-
+  font-family: 'Lato', 'Arial', sans-serif;
 }

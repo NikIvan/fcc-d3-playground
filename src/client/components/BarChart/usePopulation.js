@@ -12,7 +12,7 @@ export const usePopulation = () => {
       const row = (d) => {
         const newD = {...d};
 
-        newD.Population = +d['2020'];
+        newD.Population = +d['2020'] * 1000;
 
         return newD;
       };

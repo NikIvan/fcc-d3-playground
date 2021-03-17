@@ -15,7 +15,11 @@ module.exports = {
         use: [
           { loader: 'style-loader' },
           { loader: 'css-loader',
-            options: { modules: true },
+            options: {
+              modules: {
+                localIdentName: '[name]__[local]__[hash:base64:5]',
+              },
+            },
           },
           { loader: 'sass-loader' },
         ],
@@ -30,6 +34,18 @@ module.exports = {
             },
           },
         ],
+      },
+      {
+        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'fonts/'
+            }
+          }
+        ]
       },
       {
         test: /\.jsx?$/,
