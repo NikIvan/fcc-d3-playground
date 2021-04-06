@@ -32,9 +32,15 @@ const server = http.createServer(async (req, res) => {
     console.error(err);
   }
 
-  res.writeHead(404);
-  res.end();
+  if (req.url.includes('/api')) {
+    res.writeHead(404);
+    res.end();
+    return null;
+  }
 
+  res.statusCode = 301;
+  res.setHeader('Location', '/not-found');
+  res.end();
   return null;
 });
 

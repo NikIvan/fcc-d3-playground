@@ -1,11 +1,26 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
+
+import classes from './Header.scss';
 
 function Header() {
   return (
-    <div>
-      <Link to="/color-pie">Color Pie</Link>
-      <Link to="/bar-chart">Bar Chart</Link>
+    <div className={classes.headerContainer}>
+      <NavLink
+        className={classes.navLink}
+        activeClassName={classes.navLinkActive}
+        to="/color-pie"
+      >Color Pie</NavLink>
+      <NavLink
+        className={classes.navLink}
+        activeClassName={classes.navLinkActive}
+        to="/bar-chart"
+      >Bar Chart</NavLink>
+      <NavLink
+        className={classes.navLink}
+        activeClassName={classes.navLinkActive}
+        to="/scatterplot"
+      >Scatterplot</NavLink>
     </div>
   );
 }

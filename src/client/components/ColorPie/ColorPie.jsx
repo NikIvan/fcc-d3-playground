@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {csv, pie, arc} from 'd3';
+import {ChartPage} from '../layout/ChartPage.jsx';
 
 const width = 960;
 const height = 500;
@@ -36,17 +37,19 @@ function ColorPie() {
   const colorPie = pie().value(1);
 
   return (
-    <svg width={width} height={height}>
-      <g transform={`translate(${centerX}, ${centerY})`}>
-        {colorPie(colors).map((d) => (
-          <path
-            key={d.data.colorName}
-            fill={d.data.colorName}
-            d={pieArc(d)}
-          />))}
-      </g>
-    </svg>
+    <ChartPage>
+      <svg width={width} height={height}>
+        <g transform={`translate(${centerX}, ${centerY})`}>
+          {colorPie(colors).map((d) => (
+            <path
+              key={d.data.colorName}
+              fill={d.data.colorName}
+              d={pieArc(d)}
+            />))}
+        </g>
+      </svg>
+    </ChartPage>
   );
 }
 
-export { ColorPie };
+export {ColorPie};

@@ -10,6 +10,7 @@ import {usePopulation} from './usePopulation';
 import {AxisBottom} from './AxisBottom';
 import {AxisLeft} from './AxisLeft';
 import {Marks} from './Marks';
+import {ChartPage} from '../layout/ChartPage.jsx';
 
 import classes from './BarChart.scss';
 
@@ -48,29 +49,31 @@ function BarChart() {
     .range([0, innerWidth]);
 
   return (
-    <svg width={width} height={height} style={{backgroundColor: 'palegoldenrod'}}>
-      <g transform={`translate(${margin.left}, ${margin.top})`}>
-        <AxisBottom
-          xScale={xScale}
-          innerHeight={innerHeight}
-          tickFormat={xAxisTickFormat}
-        />
-        <AxisLeft yScale={yScale} />
-        <text
-          className={classes.chartTitle}
-          x={innerWidth / 2}
-          y={innerHeight + margin.bottom / 1.66}
-        >Population</text>
-        <Marks
-          data={population}
-          xScale={xScale}
-          yScale={yScale}
-          xValue={xValue}
-          yValue={yValue}
-          tooltipFormat={xAxisTickFormat}
-        />
-      </g>
-    </svg>
+    <ChartPage>
+      <svg width={width} height={height} style={{backgroundColor: 'palegoldenrod'}}>
+        <g transform={`translate(${margin.left}, ${margin.top})`}>
+          <AxisBottom
+            xScale={xScale}
+            innerHeight={innerHeight}
+            tickFormat={xAxisTickFormat}
+          />
+          <AxisLeft yScale={yScale} />
+          <text
+            className={classes.chartTitle}
+            x={innerWidth / 2}
+            y={innerHeight + margin.bottom / 1.66}
+          >Population</text>
+          <Marks
+            data={population}
+            xScale={xScale}
+            yScale={yScale}
+            xValue={xValue}
+            yValue={yValue}
+            tooltipFormat={xAxisTickFormat}
+          />
+        </g>
+      </svg>
+    </ChartPage>
   );
 }
 
