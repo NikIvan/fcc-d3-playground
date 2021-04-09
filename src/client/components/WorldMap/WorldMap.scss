@@ -1,0 +1,26 @@
+.marks {
+  --color-primary: #137B80;
+  --color-secondary: #339497;
+  --color-light-gray: #ECECEC;
+  --color-gray: #DADADA;
+}
+
+.marks .sphere {
+  stroke: var(--color-primary);
+  stroke-width: 1;
+  fill: var(--color-light-gray);
+}
+
+.marks .graticules {
+  fill: none;
+  stroke: var(--color-gray);
+}
+
+.marks .country {
+  fill: var(--color-primary);
+}
+
+.marks .interiors {
+  stroke: var(--color-secondary);
+  fill: none;
+}
