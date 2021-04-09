@@ -9,6 +9,7 @@ import {Header} from './Header';
 import {ColorPie} from './ColorPie';
 import {BarChart} from './BarChart';
 import {Scatterplot} from './Scatterplot/Scatterplot.jsx';
+import {LineChart} from './LineChart/LineChart.jsx';
 import {NotFound} from './NotFound/NotFound.jsx';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/color-pie" component={ColorPie} />
         <Route path="/bar-chart" component={BarChart} />
         <Route path="/scatterplot" component={Scatterplot} />
+        <Route path="/line-chart" component={LineChart} />
         <Route path="/not-found" component={NotFound} />
       </Switch>
     </Router>

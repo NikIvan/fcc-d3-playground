@@ -12,6 +12,7 @@ const staticRoutes = [
   '/color-pie',
   '/bar-chart',
   '/scatterplot',
+  '/line-chart',
   '/not-found',
 ];
 

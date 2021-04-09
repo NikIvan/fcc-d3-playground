@@ -21,6 +21,11 @@ function Header() {
         activeClassName={classes.navLinkActive}
         to="/scatterplot"
       >Scatterplot</NavLink>
+      <NavLink
+        className={classes.navLink}
+        activeClassName={classes.navLinkActive}
+        to="/line-chart"
+      >Line Chart</NavLink>
     </div>
   );
 }
