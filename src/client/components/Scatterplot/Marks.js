@@ -6,8 +6,10 @@ export const Marks = ({
   data,
   xScale,
   yScale,
+  colorScale,
   xValue,
   yValue,
+  colorValue,
   tooltipFormat,
   circleRadius = 10,
 }) => data
@@ -16,6 +18,7 @@ export const Marks = ({
     key={i}
     cx={xScale(xValue(d))}
     cy={yScale(yValue(d))}
+    fill={colorScale(colorValue(d))}
     r={circleRadius}
   >
     <title>{tooltipFormat(xValue(d))}</title>
@@ -25,8 +28,10 @@ Marks.propTypes = {
   data: PropTypes.array.isRequired,
   xScale: PropTypes.func.isRequired,
   yScale: PropTypes.func.isRequired,
+  colorScale: PropTypes.func.isRequired,
   xValue: PropTypes.func.isRequired,
   yValue: PropTypes.func.isRequired,
+  colorValue: PropTypes.func.isRequired,
   tooltipFormat: PropTypes.func.isRequired,
   circleRadius: PropTypes.number,
 };

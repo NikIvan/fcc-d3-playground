@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {extent, scaleLinear} from 'd3';
+import {extent, scaleLinear, scaleOrdinal} from 'd3';
 import ReactDropdown from 'react-dropdown';
 
 import {ChartPage} from '../layout/ChartPage.jsx';
@@ -49,6 +49,7 @@ const yAxisOffset = -69;
 const yAttributeSelectId = 'yAttributeSelect';
 
 const xAxisTickFormat = (d) => d;
+const colorValue = (d) => d.species;
 
 function Scatterplot() {
   const [irisData, isDataLoaded] = useIrisData();
@@ -80,6 +81,10 @@ function Scatterplot() {
     .domain(extent(irisData, yValue))
     .range([0, innerHeight])
     .nice();
+
+  const colorScale = scaleOrdinal()
+    .domain(irisData.map(colorValue))
+    .range(['#E6842A', '#137B80', '#8E6C8A']);
 
   return (
     <ChartPage>
@@ -132,8 +137,10 @@ function Scatterplot() {
             data={irisData}
             xScale={xScale}
             yScale={yScale}
+            colorScale={colorScale}
             xValue={xValue}
             yValue={yValue}
+            colorValue={colorValue}
             tooltipFormat={xAxisTickFormat}
             circleRadius={10}
           />
