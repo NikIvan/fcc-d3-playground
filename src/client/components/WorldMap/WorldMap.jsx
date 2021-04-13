@@ -2,6 +2,7 @@ import React from 'react';
 import {useData} from './useData';
 
 import {Marks} from './Marks.jsx';
+import {ChartPage} from '../layout/ChartPage.jsx';
 
 const width = 960;
 const height = 500;
@@ -22,9 +23,11 @@ function WorldMap() {
   }
 
   return (
-    <svg width={width} height={height}>
-      <Marks data={data} />
-    </svg>
+    <ChartPage>
+      <svg width={width} height={height}>
+        <Marks data={data} />
+      </svg>
+    </ChartPage>
   );
 }
 

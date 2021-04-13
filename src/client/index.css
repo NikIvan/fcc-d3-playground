@@ -19,3 +19,7 @@ body {
   height: 100vh;
   font-family: 'Lato', 'Arial', sans-serif;
 }
+
+.Dropdown-menu {
+  max-height: 500px;
+}

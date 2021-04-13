@@ -15,6 +15,7 @@ const staticRoutes = [
   '/line-chart',
   '/world-map',
   '/not-found',
+  '/menu-page',
 ];
 
 staticRoutes.forEach((route) => {

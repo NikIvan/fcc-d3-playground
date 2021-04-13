@@ -8,10 +8,39 @@
 
 .mark {
   fill: #137B80;
+  transition: all 300ms;
 }
 
 .chartTitle {
   font-size: 2.2em;
   fill: #635F5D;
   text-anchor: middle;
+}
+
+.controls {
+  text-align: left;
+  margin-bottom: 16px;
+  display: flex;
+}
+
+.controlGroup {
+  margin-right: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.select, .dropdownLabel {
+  font-size: 2.2em;
+  display: inline-block;
+}
+
+.select {
+  width: 300px;
+}
+
+.dropdownLabel {
+  display: inline-block;
+  color: #635F5D;
+  margin-right: 8px;
 }

@@ -31,6 +31,11 @@ function Header() {
         activeClassName={classes.navLinkActive}
         to="/world-map"
       >World Map</NavLink>
+      <NavLink
+        className={classes.navLink}
+        activeClassName={classes.navLinkActive}
+        to="/menu-page"
+      >Menu page</NavLink>
     </div>
   );
 }

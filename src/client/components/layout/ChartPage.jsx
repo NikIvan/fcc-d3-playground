@@ -5,7 +5,7 @@ import classes from './ChartPage.scss';
 
 function ChartPage({children}) {
   return (
-    <div className={classes.svgContainer}>
+    <div className={classes.pageContainer}>
       {children}
     </div>
   );
