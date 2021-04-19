@@ -7,7 +7,8 @@ import {useIrisData} from './useIrisData';
 import {AxisBottom} from './AxisBottom';
 import {AxisLeft} from './AxisLeft';
 import classes from './Scatterplot.scss';
-import {Marks} from './Marks';
+import {Marks} from './Marks.jsx';
+import {ColorLegend} from './ColorLegend.jsx';
 
 import 'react-dropdown/style.css';
 
@@ -15,7 +16,7 @@ const width = 960;
 const height = 500;
 const margin = {
   top: 40,
-  right: 60,
+  right: 200,
   bottom: 100,
   left: 200,
 };
@@ -30,6 +31,9 @@ const attributes = [
   {value: 'sepal_width', label: 'Sepal Width'},
   {value: 'species', label: 'Species'},
 ];
+
+const circleRadius = 10;
+const colorLegendLabel = 'Species';
 
 function getLabel(value) {
   for (let i = 0; i < attributes.length; i += 1) {
@@ -63,8 +67,6 @@ function Scatterplot() {
 
     return (<ChartPage>Loading...</ChartPage>);
   }
-
-  console.log({irisData, xAttribute});
 
   const xValue = (d) => d[xAttribute];
   const xAxisLabel = getLabel(xAttribute);
@@ -133,6 +135,17 @@ function Scatterplot() {
             className={classes.chartTitle}
             transform={`translate(${yAxisOffset}, ${innerHeight / 2}) rotate(-90)`}
           >{yAxisLabel}</text>
+          <g transform={`translate(${innerWidth + 60}, 60)`}>
+            <text
+              className={classes.chartTitle}
+              x={35}
+              y={-25}
+            >{colorLegendLabel}</text>
+            <ColorLegend
+              colorScale={colorScale}
+              tickSize={circleRadius}
+            />
+          </g>
           <Marks
             data={irisData}
             xScale={xScale}
@@ -142,7 +155,7 @@ function Scatterplot() {
             yValue={yValue}
             colorValue={colorValue}
             tooltipFormat={xAxisTickFormat}
-            circleRadius={10}
+            circleRadius={circleRadius}
           />
         </g>
       </svg>
