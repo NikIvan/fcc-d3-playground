@@ -7,21 +7,20 @@ export const Marks = ({
   data,
   xScale,
   yScale,
-  xValue,
-  yValue,
   tooltipFormat,
-  circleRadius = 10,
+  innerHeight,
 }) => (
   <g className={classes.mark}>
     {data
-      .map((d, i) => <circle
+      .map((d, i) => <rect
         key={i}
-        cx={xScale(xValue(d))}
-        cy={yScale(yValue(d))}
-        r={circleRadius}
+        x={xScale(d.x0)}
+        y={yScale(d.y)}
+        width={xScale(d.x1) - xScale(d.x0)}
+        height={innerHeight - yScale(d.y)}
       >
-        <title>{tooltipFormat(xValue(d))}</title>
-      </circle>)
+        <title>{tooltipFormat(d.y)}</title>
+      </rect>)
     }
   </g>
 );
@@ -30,8 +29,6 @@ Marks.propTypes = {
   data: PropTypes.array.isRequired,
   xScale: PropTypes.func.isRequired,
   yScale: PropTypes.func.isRequired,
-  xValue: PropTypes.func.isRequired,
-  yValue: PropTypes.func.isRequired,
+  innerHeight: PropTypes.number.isRequired,
   tooltipFormat: PropTypes.func.isRequired,
-  circleRadius: PropTypes.number,
 };

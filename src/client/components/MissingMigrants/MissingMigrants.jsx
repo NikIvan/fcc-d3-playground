@@ -4,6 +4,10 @@ import {
   scaleLinear,
   scaleTime,
   timeFormat,
+  bin,
+  timeMonths,
+  sum,
+  max,
 } from 'd3';
 
 import {ChartPage} from '../layout/ChartPage.jsx';
@@ -33,6 +37,7 @@ const yAxisLabel = 'Total Dead and Missing';
 const yAxisOffset = -69;
 
 const xAxisTickFormat = timeFormat('%m/%d/%Y');
+const tooltipFormat = (value) => value;
 
 function MissingMigrants() {
   const [data, isDataLoaded] = useData();
@@ -50,8 +55,20 @@ function MissingMigrants() {
     .range([0, innerWidth])
     .nice();
 
+  const [start, stop] = xScale.domain();
+
+  const binnedData = bin()
+    .value(xValue)
+    .domain(xScale.domain())
+    .thresholds(timeMonths(start, stop))(data)
+    .map((array) => ({
+      y: sum(array, yValue),
+      x0: array.x0,
+      x1: array.x1,
+    }));
+
   const yScale = scaleLinear()
-    .domain(extent(data, yValue))
+    .domain([0, max(binnedData, d => d.y)])
     .range([innerHeight, 0])
     .nice();
 
@@ -75,13 +92,11 @@ function MissingMigrants() {
             transform={`translate(${yAxisOffset}, ${innerHeight / 2}) rotate(-90)`}
           >{yAxisLabel}</text>
           <Marks
-            data={data}
+            data={binnedData}
             xScale={xScale}
             yScale={yScale}
-            xValue={xValue}
-            yValue={yValue}
-            tooltipFormat={xAxisTickFormat}
-            circleRadius={3}
+            innerHeight={innerHeight}
+            tooltipFormat={tooltipFormat}
           />
         </g>
       </svg>
