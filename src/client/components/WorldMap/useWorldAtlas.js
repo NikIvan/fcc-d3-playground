@@ -5,7 +5,7 @@ import {feature, mesh} from 'topojson';
 const dataUrl = '/api/v1/world-map-geo-data';
 const dataInitialState = {};
 
-function useData() {
+function useWorldAtlas() {
   const [data, setData] = useState(dataInitialState);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
 
@@ -27,4 +27,4 @@ function useData() {
   return [data, isDataLoaded];
 }
 
-export {useData};
+export {useWorldAtlas};
