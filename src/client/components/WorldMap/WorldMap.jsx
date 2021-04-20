@@ -1,5 +1,7 @@
 import React from 'react';
 
+import {scaleSqrt, max} from 'd3';
+
 import {Marks} from './Marks.jsx';
 import {ChartPage} from '../layout/ChartPage.jsx';
 
@@ -8,6 +10,9 @@ import {useWorldCities} from './useWorldCities';
 
 const width = 960;
 const height = 500;
+
+const sizeValue = (d) => d.population;
+const maxRadius = 12;
 
 function WorldMap() {
   const [worldAtlas, isWorldAtlasLoaded] = useWorldAtlas();
@@ -25,10 +30,19 @@ function WorldMap() {
     );
   }
 
+  const sizeScale = scaleSqrt()
+    .domain([0, max(worldCities, sizeValue)])
+    .range([0, maxRadius]);
+
   return (
     <ChartPage>
       <svg width={width} height={height}>
-        <Marks worldAtlas={worldAtlas} worldCities={worldCities} />
+        <Marks
+          worldAtlas={worldAtlas}
+          worldCities={worldCities}
+          sizeScale={sizeScale}
+          sizeValue={sizeValue}
+        />
       </svg>
     </ChartPage>
   );

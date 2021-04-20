@@ -8,7 +8,12 @@ const projection = geoNaturalEarth1();
 const path = geoPath(projection);
 const graticules = geoGraticule();
 
-function Marks({worldAtlas, worldCities}) {
+function Marks({
+  worldAtlas,
+  worldCities,
+  sizeScale,
+  sizeValue,
+}) {
   const {countries, interiors} = worldAtlas;
 
   return (
@@ -19,16 +24,16 @@ function Marks({worldAtlas, worldCities}) {
         <path d={path(feature)} key={i} className={classes.country} />
       ))}
       <path d={path(interiors)} className={classes.interiors} />
-      {worldCities.map((cityData, i) => {
-        const [x, y] = projection([cityData.lng, cityData.lat]);
-        const name = cityData.city;
+      {worldCities.map((d, i) => {
+        const [x, y] = projection([d.lng, d.lat]);
+        const name = d.city;
 
         return (
           <circle
             key={name + i}
             cx={x}
             cy={y}
-            r={1.4}
+            r={sizeScale(sizeValue(d))}
             className={classes.city}
           />
         );
@@ -40,6 +45,8 @@ function Marks({worldAtlas, worldCities}) {
 Marks.propTypes = {
   worldAtlas: PropTypes.object.isRequired,
   worldCities: PropTypes.array.isRequired,
+  sizeScale: PropTypes.func.isRequired,
+  sizeValue: PropTypes.func.isRequired,
 
 };
 
