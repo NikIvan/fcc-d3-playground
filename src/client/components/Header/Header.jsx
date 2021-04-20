@@ -36,6 +36,11 @@ function Header() {
         activeClassName={classes.navLinkActive}
         to="/menu-page"
       >Menu page</NavLink>
+      <NavLink
+        className={classes.navLink}
+        activeClassName={classes.navLinkActive}
+        to="/missing-migrants"
+      >Missing Migrants</NavLink>
     </div>
   );
 }

@@ -22,6 +22,10 @@ const apiProxyRoutes = [
     url: '/api/v1/world-cities',
     remoteUrl: 'https://gist.githubusercontent.com/curran/13d30e855d48cdd6f22acdf0afe27286/raw/0635f14817ec634833bb904a47594cc2f5f9dbf8/worldcities_clean.csv',
   },
+  {
+    url: '/api/v1/missing-migrants',
+    remoteUrl: 'https://gist.githubusercontent.com/curran/a9656d711a8ad31d812b8f9963ac441c/raw/267eac8b97d161c479d950ffad3ddd5ce2d1f370/MissingMigrants-Global-2019-10-08T09-47-14-subset.csv',
+  },
 ];
 
 function initApiProxyRoutes(router) {

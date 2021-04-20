@@ -12,6 +12,7 @@ const staticRoutes = [
   '/world-map',
   '/not-found',
   '/menu-page',
+  '/missing-migrants',
 ];
 
 function initStaticRoutes(router) {

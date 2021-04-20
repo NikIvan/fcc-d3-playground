@@ -1,11 +1,16 @@
 import React from 'react';
-import {extent, scaleLinear, scaleTime, timeFormat} from 'd3';
+import {
+  extent,
+  scaleLinear,
+  scaleTime,
+  timeFormat,
+} from 'd3';
 
 import {ChartPage} from '../layout/ChartPage.jsx';
 import {useData} from './useData';
 import {AxisBottom} from './AxisBottom';
 import {AxisLeft} from './AxisLeft';
-import classes from './LineChart.scss';
+import classes from './MissingMigrants.scss';
 import {Marks} from './Marks';
 
 const width = 960;
@@ -20,16 +25,16 @@ const margin = {
 const innerWidth = width - margin.left - margin.right;
 const innerHeight = height - margin.top - margin.bottom;
 
-const xValue = (d) => d.timestamp;
+const xValue = (d) => d.reportedDate;
 const xAxisLabel = 'Time';
 
-const yValue = (d) => d.temperature;
-const yAxisLabel = 'Temperature';
+const yValue = (d) => d.totalDeadAndMissing;
+const yAxisLabel = 'Total Dead and Missing';
 const yAxisOffset = -69;
 
-const xAxisTickFormat = timeFormat('%a');
+const xAxisTickFormat = timeFormat('%m/%d/%Y');
 
-function LineChart() {
+function MissingMigrants() {
   const [data, isDataLoaded] = useData();
 
   if (data.length === 0) {
@@ -64,7 +69,7 @@ function LineChart() {
             x={innerWidth / 2}
             y={innerHeight + margin.bottom / 1.66}
           >{xAxisLabel}</text>
-          <AxisLeft yScale={yScale} innerWidth={innerWidth} />
+          <AxisLeft yScale={yScale} innerWidth={innerWidth}/>
           <text
             className={classes.chartTitle}
             transform={`translate(${yAxisOffset}, ${innerHeight / 2}) rotate(-90)`}
@@ -84,4 +89,4 @@ function LineChart() {
   );
 }
 
-export {LineChart};
+export {MissingMigrants};

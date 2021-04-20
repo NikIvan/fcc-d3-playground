@@ -13,6 +13,7 @@ import {LineChart} from './LineChart/LineChart.jsx';
 import {WorldMap} from './WorldMap/WorldMap.jsx';
 import {NotFound} from './NotFound/NotFound.jsx';
 import {MenuPage} from './MenuPage/MenuPage.jsx';
+import {MissingMigrants} from './MissingMigrants/MissingMigrants.jsx';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/line-chart" component={LineChart} />
         <Route path="/world-map" component={WorldMap} />
         <Route path="/menu-page" component={MenuPage} />
+        <Route path="/missing-migrants" component={MissingMigrants} />
         <Route path="/not-found" component={NotFound} />
       </Switch>
     </Router>
