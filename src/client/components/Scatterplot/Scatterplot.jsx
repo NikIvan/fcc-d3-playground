@@ -59,6 +59,7 @@ function Scatterplot() {
   const [irisData, isDataLoaded] = useIrisData();
   const [xAttribute, setXAttribute] = useState(xAttributeInitial);
   const [yAttribute, setYAttribute] = useState(yAttributeInitial);
+  const [accentValue, setAccentValue] = useState(null);
 
   if (irisData.length === 0) {
     if (isDataLoaded) {
@@ -87,6 +88,17 @@ function Scatterplot() {
   const colorScale = scaleOrdinal()
     .domain(irisData.map(colorValue))
     .range(['#E6842A', '#137B80', '#8E6C8A']);
+
+  const setAccentValueHandler = (e) => {
+    const newAccentValue = e.currentTarget.getAttribute('data-value');
+    setAccentValue(newAccentValue);
+  };
+
+  const unsetAccentValue = () => {
+    setAccentValue(null);
+  };
+
+  const filteredData = irisData.filter((d) => accentValue === colorValue(d));
 
   return (
     <ChartPage>
@@ -144,10 +156,26 @@ function Scatterplot() {
             <ColorLegend
               colorScale={colorScale}
               tickSize={circleRadius}
+              onMouseEnter={setAccentValueHandler}
+              onMouseLeave={unsetAccentValue}
             />
           </g>
-          <Marks
-            data={irisData}
+          <g opacity={accentValue ? 0.3 : 1}>
+            <Marks
+              data={irisData}
+              xScale={xScale}
+              yScale={yScale}
+              colorScale={colorScale}
+              xValue={xValue}
+              yValue={yValue}
+              colorValue={colorValue}
+              tooltipFormat={xAxisTickFormat}
+              circleRadius={circleRadius}
+            />
+          </g>
+          {accentValue
+          && <Marks
+            data={filteredData}
             xScale={xScale}
             yScale={yScale}
             colorScale={colorScale}
@@ -156,7 +184,7 @@ function Scatterplot() {
             colorValue={colorValue}
             tooltipFormat={xAxisTickFormat}
             circleRadius={circleRadius}
-          />
+          />}
         </g>
       </svg>
     </ChartPage>
