@@ -1,32 +1,5 @@
-const path = require('path');
 const https = require('https');
-
-const HttpRouter = require('./lib/HttpRouter');
-const {sendFile} = require('./lib/responseHelpers');
-const config = require('./config/config');
-
-const router = new HttpRouter();
-
-const staticRoutes = [
-  '/',
-  '/color-pie',
-  '/bar-chart',
-  '/scatterplot',
-  '/line-chart',
-  '/world-map',
-  '/not-found',
-  '/menu-page',
-];
-
-staticRoutes.forEach((route) => {
-  router.set(route, {
-    method: HttpRouter.METHOD_GET,
-    isExact: true,
-  }, async (req, res) => {
-    const pathToFile = path.join(config.publicFolder, '/index.html');
-    await sendFile(req, res, pathToFile);
-  });
-});
+const HttpRouter = require('../lib/HttpRouter');
 
 const apiProxyRoutes = [
   {
@@ -45,16 +18,22 @@ const apiProxyRoutes = [
     url: '/api/v1/world-map-geo-data',
     remoteUrl: 'https://unpkg.com/world-atlas@2.0.2/countries-50m.json',
   },
+  {
+    url: '/api/v1/world-cities',
+    remoteUrl: 'https://gist.githubusercontent.com/curran/13d30e855d48cdd6f22acdf0afe27286/raw/0635f14817ec634833bb904a47594cc2f5f9dbf8/worldcities_clean.csv',
+  },
 ];
 
-apiProxyRoutes.forEach((route) => {
-  router.set(
-    route.url, {
-      method: HttpRouter.METHOD_GET,
-      isExact: true,
-    }, apiProxyHandler(route.remoteUrl),
-  );
-});
+function initApiProxyRoutes(router) {
+  apiProxyRoutes.forEach((route) => {
+    router.set(
+      route.url, {
+        method: HttpRouter.METHOD_GET,
+        isExact: true,
+      }, apiProxyHandler(route.remoteUrl),
+    );
+  });
+}
 
 function apiProxyHandler(dataUrl) {
   return (req, res) => {
@@ -72,4 +51,4 @@ function apiProxyHandler(dataUrl) {
   };
 }
 
-module.exports = router;
+module.exports = initApiProxyRoutes;

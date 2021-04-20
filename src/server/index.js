@@ -1,6 +1,6 @@
 const http = require('http');
 
-const router = require('./router');
+const router = require('./router/router');
 const {findStaticFile} = require('./lib/fileSystem');
 const {sendFile} = require('./lib/responseHelpers');
 const {PORT, HOSTNAME} = require('./constants');
