@@ -3,6 +3,8 @@
   --color-secondary: #339497;
   --color-light-gray: #ECECEC;
   --color-gray: #DADADA;
+  --color-bg: #B1C7C8;
+  --color-interiors: #6e8888;
 }
 
 .marks .sphere {
@@ -17,10 +19,15 @@
 }
 
 .marks .country {
-  fill: var(--color-primary);
+  fill: var(--color-bg);
 }
 
 .marks .interiors {
-  stroke: var(--color-secondary);
+  stroke: var(--color-interiors);
   fill: none;
+}
+
+.city {
+  fill: var(--color-primary);
+  opacity: .5;
 }

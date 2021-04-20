@@ -1,22 +1,25 @@
 import React from 'react';
-import {useWorldAtlas} from './useWorldAtlas';
 
 import {Marks} from './Marks.jsx';
 import {ChartPage} from '../layout/ChartPage.jsx';
+
+import {useWorldAtlas} from './useWorldAtlas';
+import {useWorldCities} from './useWorldCities';
 
 const width = 960;
 const height = 500;
 
 function WorldMap() {
-  const [worldAtlasData, isWorldAtlasLoaded] = useWorldAtlas();
+  const [worldAtlas, isWorldAtlasLoaded] = useWorldAtlas();
+  const [worldCities, isWorldCitiesLoaded] = useWorldCities();
 
-  if (!isWorldAtlasLoaded) {
+  if (!isWorldAtlasLoaded || !isWorldCitiesLoaded) {
     return (
       <div>Loading...</div>
     );
   }
 
-  if (worldAtlasData.countries.length === 0) {
+  if (worldAtlas.countries.length === 0) {
     return (
       <div>No data</div>
     );
@@ -25,7 +28,7 @@ function WorldMap() {
   return (
     <ChartPage>
       <svg width={width} height={height}>
-        <Marks data={worldAtlasData} />
+        <Marks worldAtlas={worldAtlas} worldCities={worldCities} />
       </svg>
     </ChartPage>
   );
