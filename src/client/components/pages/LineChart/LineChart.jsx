@@ -1,7 +1,12 @@
 import React from 'react';
-import {extent, scaleLinear, scaleTime, timeFormat} from 'd3';
+import {
+  extent,
+  scaleLinear,
+  scaleTime,
+  timeFormat,
+} from 'd3';
 
-import {ChartPage} from '../layout/ChartPage.jsx';
+import {ChartPage} from '../../layout/ChartPage.jsx';
 import {useData} from './useData';
 import {AxisBottom} from './AxisBottom';
 import {AxisLeft} from './AxisLeft';

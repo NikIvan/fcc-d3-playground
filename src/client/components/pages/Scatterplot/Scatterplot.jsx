@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {extent, scaleLinear, scaleOrdinal} from 'd3';
 import ReactDropdown from 'react-dropdown';
 
-import {ChartPage} from '../layout/ChartPage.jsx';
+import {ChartPage} from '../../layout/ChartPage.jsx';
 import {useIrisData} from './useIrisData';
 import {AxisBottom} from './AxisBottom';
 import {AxisLeft} from './AxisLeft';

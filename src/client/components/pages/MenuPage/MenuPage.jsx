@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Dropdown} from '../Dropdown/Dropdown.jsx';
+import {Dropdown} from '../../Dropdown/Dropdown.jsx';
 
 import classes from './MenuPage.scss';
 

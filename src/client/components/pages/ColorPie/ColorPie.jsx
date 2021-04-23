@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {csv, pie, arc} from 'd3';
-import {ChartPage} from '../layout/ChartPage.jsx';
+import {ChartPage} from '../../layout/ChartPage.jsx';
 
 const width = 960;
 const height = 500;

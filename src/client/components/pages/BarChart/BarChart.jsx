@@ -10,7 +10,7 @@ import {usePopulation} from './usePopulation';
 import {AxisBottom} from './AxisBottom';
 import {AxisLeft} from './AxisLeft';
 import {Marks} from './Marks';
-import {ChartPage} from '../layout/ChartPage.jsx';
+import {ChartPage} from '../../layout/ChartPage.jsx';
 
 import classes from './BarChart.scss';
 

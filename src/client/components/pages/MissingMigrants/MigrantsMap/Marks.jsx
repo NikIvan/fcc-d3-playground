@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import PropTypes from 'prop-types';
 import {geoNaturalEarth1, geoPath, geoGraticule} from 'd3';
 
@@ -8,15 +8,13 @@ const projection = geoNaturalEarth1();
 const path = geoPath(projection);
 const graticules = geoGraticule();
 
-function MigrantsMap({
+function Marks({
   worldAtlas,
   migrantsData,
   sizeScale,
   sizeValue,
 }) {
   const {countries, interiors} = worldAtlas;
-
-  console.log(migrantsData[0]);
 
   return (
     <g className={classes.marks}>
@@ -43,7 +41,7 @@ function MigrantsMap({
   );
 }
 
-MigrantsMap.propTypes = {
+Marks.propTypes = {
   worldAtlas: PropTypes.object.isRequired,
   migrantsData: PropTypes.array.isRequired,
   sizeScale: PropTypes.func.isRequired,
@@ -51,4 +49,4 @@ MigrantsMap.propTypes = {
 
 };
 
-export {MigrantsMap};
+export {Marks};

@@ -6,14 +6,14 @@ import {
 } from 'react-router-dom';
 
 import {Header} from './Header';
-import {ColorPie} from './ColorPie';
-import {BarChart} from './BarChart';
-import {Scatterplot} from './Scatterplot/Scatterplot.jsx';
-import {LineChart} from './LineChart/LineChart.jsx';
-import {WorldMap} from './WorldMap/WorldMap.jsx';
-import {NotFound} from './NotFound/NotFound.jsx';
-import {MenuPage} from './MenuPage/MenuPage.jsx';
-import {MissingMigrants} from './MissingMigrants/MissingMigrants.jsx';
+import {ColorPie} from './pages/ColorPie';
+import {BarChart} from './pages/BarChart';
+import {Scatterplot} from './pages/Scatterplot/Scatterplot.jsx';
+import {LineChart} from './pages/LineChart/LineChart.jsx';
+import {WorldMap} from './pages/WorldMap/WorldMap.jsx';
+import {NotFound} from './pages/NotFound/NotFound.jsx';
+import {MenuPage} from './pages/MenuPage/MenuPage.jsx';
+import {MissingMigrants} from './pages/MissingMigrants/MissingMigrants.jsx';
 
 function App() {
   return (

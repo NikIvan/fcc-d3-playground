@@ -3,10 +3,10 @@ import React from 'react';
 import {scaleSqrt, max} from 'd3';
 
 import {Marks} from './Marks.jsx';
-import {ChartPage} from '../layout/ChartPage.jsx';
+import {ChartPage} from '../../layout/ChartPage.jsx';
 
-import {useWorldAtlas} from '../../hooks/useWorldAtlas';
-import {useWorldCities} from '../../hooks/useWorldCities';
+import {useWorldAtlas} from '../../../hooks/useWorldAtlas';
+import {useWorldCities} from '../../../hooks/useWorldCities';
 
 const width = 960;
 const height = 500;

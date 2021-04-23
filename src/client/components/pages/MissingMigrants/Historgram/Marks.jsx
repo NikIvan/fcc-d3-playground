@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import classes from './MissingMigrants.scss';
+import classes from './Histogram.scss';
 
-export const Histogram = ({
+export const Marks = ({
   data,
   xScale,
   yScale,
@@ -25,7 +25,7 @@ export const Histogram = ({
   </g>
 );
 
-Histogram.propTypes = {
+Marks.propTypes = {
   data: PropTypes.array.isRequired,
   xScale: PropTypes.func.isRequired,
   yScale: PropTypes.func.isRequired,

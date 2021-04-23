@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import classes from './MissingMigrants.scss';
+import classes from './Histogram.scss';
 
 const AxisBottom = ({
   xScale,
