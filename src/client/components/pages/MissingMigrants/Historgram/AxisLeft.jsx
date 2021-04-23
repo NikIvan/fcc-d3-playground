@@ -13,11 +13,11 @@ const AxisLeft = ({yScale, innerWidth, tickLabelOffset = 10}) => yScale
         x2={innerWidth}
         y2={0}
       />
-      <text
+      {(i % 2 === 0) && <text
         x={-tickLabelOffset}
         dy="0.32em"
         style={{textAnchor: 'end'}}
-      >{tickValue}</text>
+      >{tickValue}</text>}
     </g>));
 
 AxisLeft.propTypes = {
