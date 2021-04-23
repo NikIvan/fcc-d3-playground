@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import classes from './MissingMigrants.scss';
 
-export const Marks = ({
+export const Histogram = ({
   data,
   xScale,
   yScale,
@@ -25,7 +25,7 @@ export const Marks = ({
   </g>
 );
 
-Marks.propTypes = {
+Histogram.propTypes = {
   data: PropTypes.array.isRequired,
   xScale: PropTypes.func.isRequired,
   yScale: PropTypes.func.isRequired,

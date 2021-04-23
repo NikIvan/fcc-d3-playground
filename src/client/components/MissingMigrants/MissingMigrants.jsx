@@ -3,6 +3,7 @@ import {
   extent,
   scaleLinear,
   scaleTime,
+  scaleSqrt,
   timeFormat,
   bin,
   timeMonths,
@@ -11,11 +12,13 @@ import {
 } from 'd3';
 
 import {ChartPage} from '../layout/ChartPage.jsx';
-import {useData} from './useData';
+import {useMissingMigrantsData} from '../../hooks/useMissingMigrantsData';
 import {AxisBottom} from './AxisBottom';
 import {AxisLeft} from './AxisLeft';
+import {Histogram} from './Histogram.jsx';
+import {MigrantsMap} from './MigrantsMap.jsx';
 import classes from './MissingMigrants.scss';
-import {Marks} from './Marks';
+import {useWorldAtlas} from '../../hooks/useWorldAtlas';
 
 const width = 960;
 const height = 500;
@@ -39,11 +42,16 @@ const yAxisOffset = -69;
 const xAxisTickFormat = timeFormat('%m/%d/%Y');
 const tooltipFormat = (value) => value;
 
-function MissingMigrants() {
-  const [data, isDataLoaded] = useData();
+const mapLocationValue = (d) => d.totalDeadAndMissing;
+const maxRadius = 12;
 
-  if (data.length === 0) {
-    if (isDataLoaded) {
+// TODO: Get correct data
+function MissingMigrants() {
+  const [missingMigrantsData, isMissingMigrantsDataLoaded] = useMissingMigrantsData();
+  const [worldAtlasData, isWorldAtlasDataLoaded] = useWorldAtlas();
+
+  if (missingMigrantsData.length === 0) {
+    if (isMissingMigrantsDataLoaded) {
       return (<ChartPage>No data</ChartPage>);
     }
 
@@ -51,7 +59,7 @@ function MissingMigrants() {
   }
 
   const xScale = scaleTime()
-    .domain(extent(data, xValue))
+    .domain(extent(missingMigrantsData, xValue))
     .range([0, innerWidth])
     .nice();
 
@@ -60,7 +68,7 @@ function MissingMigrants() {
   const binnedData = bin()
     .value(xValue)
     .domain(xScale.domain())
-    .thresholds(timeMonths(start, stop))(data)
+    .thresholds(timeMonths(start, stop))(missingMigrantsData)
     .map((array) => ({
       y: sum(array, yValue),
       x0: array.x0,
@@ -68,9 +76,13 @@ function MissingMigrants() {
     }));
 
   const yScale = scaleLinear()
-    .domain([0, max(binnedData, d => d.y)])
+    .domain([0, max(binnedData, (d) => d.y)])
     .range([innerHeight, 0])
     .nice();
+
+  const mapLocationScale = scaleSqrt()
+    .domain([0, max(missingMigrantsData, mapLocationValue)])
+    .range([0, maxRadius]);
 
   return (
     <ChartPage>
@@ -91,7 +103,7 @@ function MissingMigrants() {
             className={classes.chartTitle}
             transform={`translate(${yAxisOffset}, ${innerHeight / 2}) rotate(-90)`}
           >{yAxisLabel}</text>
-          <Marks
+          <Histogram
             data={binnedData}
             xScale={xScale}
             yScale={yScale}
@@ -99,6 +111,14 @@ function MissingMigrants() {
             tooltipFormat={tooltipFormat}
           />
         </g>
+      </svg>
+      <svg width={width} height={height}>
+        <MigrantsMap
+          worldAtlas={worldAtlasData}
+          migrantsData={missingMigrantsData}
+          sizeScale={mapLocationScale}
+          sizeValue={mapLocationValue}
+        />
       </svg>
     </ChartPage>
   );

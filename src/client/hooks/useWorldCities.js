@@ -22,7 +22,6 @@ function useWorldCities() {
     async function getData() {
       const cities = await csv(dataUrl, row);
 
-      console.log(cities[0]);
       setData(cities);
       setIsDataLoaded(true);
     }
