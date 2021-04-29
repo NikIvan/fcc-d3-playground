@@ -1,8 +1,4 @@
-import React from 'react';
-import {
-  scaleSqrt,
-  max,
-} from 'd3';
+import React, {useEffect, useState} from 'react';
 
 import {ChartPage} from '../../layout/ChartPage.jsx';
 import {useMissingMigrantsData} from '../../../hooks/useMissingMigrantsData';
@@ -12,10 +8,24 @@ import {useWorldAtlas} from '../../../hooks/useWorldAtlas';
 
 const width = 960;
 const height = 500;
+const xValue = (d) => d.reportedDate;
 
 function MissingMigrants() {
   const [missingMigrantsData, isMissingMigrantsDataLoaded] = useMissingMigrantsData();
-  const [worldAtlasData, isWorldAtlasDataLoaded] = useWorldAtlas();
+  const [worldAtlasData] = useWorldAtlas();
+  const [brushExtent, setBrushExtent] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+
+  useEffect(() => {
+    if (brushExtent.length === 0) {
+      setFilteredData([...missingMigrantsData]);
+    } else {
+      setFilteredData(missingMigrantsData.filter((d) => {
+        const date = xValue(d);
+        return date > brushExtent[0] && date < brushExtent[1];
+      }));
+    }
+  }, [missingMigrantsData, brushExtent]);
 
   if (missingMigrantsData.length === 0) {
     if (isMissingMigrantsDataLoaded) {
@@ -30,12 +40,14 @@ function MissingMigrants() {
       <svg width={width} height={height}>
         <MigrantsMap
           worldAtlas={worldAtlasData}
-          migrantsData={missingMigrantsData}
+          migrantsData={filteredData}
         />
         <Histogram
           data={missingMigrantsData}
           width={width}
           height={height}
+          setBrushExtent={setBrushExtent}
+          xValue={xValue}
         />
       </svg>
     </ChartPage>

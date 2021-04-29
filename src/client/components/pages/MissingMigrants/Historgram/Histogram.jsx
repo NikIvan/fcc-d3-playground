@@ -1,8 +1,17 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 
 import {
-  bin, extent, max, scaleLinear, scaleTime, sum, timeFormat, timeMonths,
+  bin,
+  extent,
+  max,
+  scaleLinear,
+  scaleTime,
+  sum,
+  timeFormat,
+  timeMonths,
+  brushX,
+  select,
 } from 'd3';
 
 import {Marks} from './Marks.jsx';
@@ -20,7 +29,6 @@ const margin = {
 
 const histogramHeightScale = 0.3;
 
-const xValue = (d) => d.reportedDate;
 const xAxisLabel = 'Time';
 
 const yValue = (d) => d.totalDeadAndMissing;
@@ -34,7 +42,11 @@ export const Histogram = ({
   data,
   width,
   height,
+  setBrushExtent,
+  xValue,
 }) => {
+  const brushRef = useRef(null);
+
   const innerWidth = width - margin.left - margin.right;
   const bgHeight = height * histogramHeightScale;
   const innerHeight = bgHeight - margin.top - margin.bottom;
@@ -61,7 +73,15 @@ export const Histogram = ({
     .range([innerHeight, 0])
     .nice();
 
-  console.dir({innerHeight, innerWidth, bgHeight});
+  useEffect(() => {
+    const brush = brushX()
+      .extent([[0, 0], [innerWidth, innerHeight]])
+      .on('brush end', (event) => {
+        setBrushExtent(event.selection ? event.selection.map(xScale.invert) : []);
+      });
+
+    brush(select(brushRef.current));
+  }, [innerWidth, innerHeight]);
 
   return (
     <>
@@ -98,6 +118,7 @@ export const Histogram = ({
           innerHeight={innerHeight}
           tooltipFormat={tooltipFormat}
         />
+        <g ref={brushRef} />
       </g>
     </>
   );
@@ -107,4 +128,6 @@ Histogram.propTypes = {
   data: PropTypes.array.isRequired,
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
+  setBrushExtent: PropTypes.func.isRequired,
+  xValue: PropTypes.func.isRequired,
 };

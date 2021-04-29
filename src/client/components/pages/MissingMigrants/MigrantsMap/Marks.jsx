@@ -9,12 +9,16 @@ const path = geoPath(projection);
 const graticules = geoGraticule();
 
 function Marks({
-  worldAtlas,
+  worldAtlas = {},
   migrantsData,
   sizeScale,
   sizeValue,
 }) {
   const {countries, interiors} = worldAtlas;
+
+  if (countries == null || interiors == null) {
+    return (<g />);
+  }
 
   return (
     <g className={classes.marks}>

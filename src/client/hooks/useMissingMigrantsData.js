@@ -25,7 +25,6 @@ export const useMissingMigrantsData = () => {
       };
 
       const csvData = await csv(dataUrl, row);
-      console.log(csvData[0]);
       setData(csvData);
       setIsDataLoaded(true);
     }
