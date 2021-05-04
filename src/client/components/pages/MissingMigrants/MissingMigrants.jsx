@@ -40,7 +40,8 @@ function MissingMigrants() {
       <svg width={width} height={height}>
         <MigrantsMap
           worldAtlas={worldAtlasData}
-          migrantsData={filteredData}
+          filteredData={filteredData}
+          data={missingMigrantsData}
         />
         <Histogram
           data={missingMigrantsData}

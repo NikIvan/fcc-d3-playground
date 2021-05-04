@@ -1,8 +1,9 @@
-﻿import React from 'react';
+﻿import React, {useMemo} from 'react';
 import PropTypes from 'prop-types';
 import {geoNaturalEarth1, geoPath, geoGraticule} from 'd3';
 
 import classes from './MigrantsMap.scss';
+import {Countries} from './Countries.jsx';
 
 const projection = geoNaturalEarth1();
 const path = geoPath(projection);
@@ -20,14 +21,16 @@ function Marks({
     return (<g />);
   }
 
+  const interiorsPath = useMemo(() => path(interiors), [path, interiors]);
+  const graticulesPath = useMemo(() => path(graticules()), [path, graticules]);
+  const spherePath = useMemo(() => path({type: 'Sphere'}), [path]);
+
   return (
     <g className={classes.marks}>
-      <path d={path({type: 'Sphere'})} className={classes.sphere} />
-      <path d={path(graticules())} className={classes.graticules} />
-      {countries.features.map((feature, i) => (
-        <path d={path(feature)} key={i} className={classes.country} />
-      ))}
-      <path d={path(interiors)} className={classes.interiors} />
+      <path d={spherePath} className={classes.sphere} />
+      <path d={graticulesPath} className={classes.graticules} />
+      <Countries path={path} countries={countries} />
+      <path d={interiorsPath} className={classes.interiors} />
       {migrantsData.map((d, i) => {
         const [x, y] = projection([d.lng, d.lat]);
 

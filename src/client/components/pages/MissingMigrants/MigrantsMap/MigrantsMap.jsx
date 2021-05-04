@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import PropTypes from 'prop-types';
 import {max, scaleSqrt} from 'd3';
 
@@ -9,15 +9,19 @@ const maxRadius = 20;
 
 function MigrantsMap({
   worldAtlas,
-  migrantsData,
+  data,
+  filteredData,
 }) {
-  const mapLocationScale = scaleSqrt()
-    .domain([0, max(migrantsData, mapLocationValue)])
-    .range([0, maxRadius]);
+  const mapLocationScale = useMemo(
+    () => scaleSqrt()
+      .domain([0, max(data, mapLocationValue)])
+      .range([0, maxRadius]),
+    [data]
+  );
 
   return (
     <Marks
-      migrantsData={migrantsData}
+      migrantsData={filteredData}
       worldAtlas={worldAtlas}
       sizeScale={mapLocationScale}
       sizeValue={mapLocationValue}
@@ -27,7 +31,8 @@ function MigrantsMap({
 
 MigrantsMap.propTypes = {
   worldAtlas: PropTypes.object.isRequired,
-  migrantsData: PropTypes.array.isRequired,
+  data: PropTypes.array.isRequired,
+  filteredData: PropTypes.array.isRequired,
 };
 
 export {MigrantsMap};

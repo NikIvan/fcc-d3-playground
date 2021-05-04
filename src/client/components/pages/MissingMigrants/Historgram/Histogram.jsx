@@ -1,4 +1,5 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useMemo} from 'react';
+import {debounce} from 'underscore';
 import PropTypes from 'prop-types';
 
 import {
@@ -37,6 +38,7 @@ const yAxisOffset = -55;
 
 const xAxisTickFormat = timeFormat('%Y');
 const tooltipFormat = (value) => value;
+const getY = (d) => d.y;
 
 export const Histogram = ({
   data,
@@ -51,37 +53,49 @@ export const Histogram = ({
   const bgHeight = height * histogramHeightScale;
   const innerHeight = bgHeight - margin.top - margin.bottom;
 
-  const xScale = scaleTime()
-    .domain(extent(data, xValue))
-    .range([0, innerWidth])
-    .nice();
+  const xScale = useMemo(
+    () => scaleTime()
+      .domain(extent(data, xValue))
+      .range([0, innerWidth])
+      .nice(),
+    [data, xValue, innerWidth]
+  );
 
   const [start, stop] = xScale.domain();
 
-  const binnedData = bin()
-    .value(xValue)
-    .domain(xScale.domain())
-    .thresholds(timeMonths(start, stop))(data)
-    .map((array) => ({
-      y: sum(array, yValue),
-      x0: array.x0,
-      x1: array.x1,
-    }));
+  const binnedData = useMemo(
+    () => bin()
+      .value(xValue)
+      .domain(xScale.domain())
+      .thresholds(timeMonths(start, stop))(data)
+      .map((array) => ({
+        y: sum(array, yValue),
+        x0: array.x0,
+        x1: array.x1,
+      })),
+    [xValue, yValue, xScale, data]
+  );
 
-  const yScale = scaleLinear()
-    .domain([0, max(binnedData, (d) => d.y)])
-    .range([innerHeight, 0])
-    .nice();
+  const yScale = useMemo(
+    () => scaleLinear()
+      .domain([0, max(binnedData, getY)])
+      .range([innerHeight, 0])
+      .nice(),
+    [binnedData, innerHeight]
+  );
 
   useEffect(() => {
+    const onBrushDebounced = debounce((event) => {
+      const newBrushExtent = event.selection ? event.selection.map(xScale.invert) : [];
+      setBrushExtent(newBrushExtent);
+    }, 150);
+
     const brush = brushX()
       .extent([[0, 0], [innerWidth, innerHeight]])
-      .on('brush end', (event) => {
-        setBrushExtent(event.selection ? event.selection.map(xScale.invert) : []);
-      });
+      .on('brush end', onBrushDebounced);
 
     brush(select(brushRef.current));
-  }, [innerWidth, innerHeight]);
+  }, [innerWidth, innerHeight, xScale]);
 
   return (
     <>
