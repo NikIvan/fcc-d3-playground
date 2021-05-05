@@ -15,7 +15,8 @@ function useWorldAtlas() {
       const {countries, land} = topology.objects;
 
       setData({
-        countries: feature(topology, land),
+        land: feature(topology, land),
+        countries: feature(topology, countries),
         interiors: mesh(topology, countries, (a, b) => a !== b),
       });
       setIsDataLoaded(true);

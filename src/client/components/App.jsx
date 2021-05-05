@@ -14,6 +14,7 @@ import {WorldMap} from './pages/WorldMap/WorldMap.jsx';
 import {NotFound} from './pages/NotFound/NotFound.jsx';
 import {MenuPage} from './pages/MenuPage/MenuPage.jsx';
 import {MissingMigrants} from './pages/MissingMigrants/MissingMigrants.jsx';
+import {ChoroplethMap} from './pages/ChoroplethMap/ChoroplethMap.jsx';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/world-map" component={WorldMap} />
         <Route path="/menu-page" component={MenuPage} />
         <Route path="/missing-migrants" component={MissingMigrants} />
+        <Route path="/choropleth-map" component={ChoroplethMap} />
         <Route path="/not-found" component={NotFound} />
       </Switch>
     </Router>

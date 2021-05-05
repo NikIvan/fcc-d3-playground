@@ -13,6 +13,7 @@ const staticRoutes = [
   '/not-found',
   '/menu-page',
   '/missing-migrants',
+  '/choropleth-map',
 ];
 
 function initStaticRoutes(router) {

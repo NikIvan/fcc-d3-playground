@@ -26,6 +26,14 @@ const apiProxyRoutes = [
     url: '/api/v1/missing-migrants',
     remoteUrl: 'https://gist.githubusercontent.com/curran/a9656d711a8ad31d812b8f9963ac441c/raw/267eac8b97d161c479d950ffad3ddd5ce2d1f370/MissingMigrants-Global-2019-10-08T09-47-14-subset.csv',
   },
+  {
+    url: '/api/v1/hiv-data',
+    remoteUrl: 'https://gist.githubusercontent.com/curran/470752f12c027f8ff4266e7c96f26a56/raw/66908b56e371e7c9f5a1c0911ac3250f570a4c83/share-of-population-infected-with-hiv-ihme.csv',
+  },
+  {
+    url: '/api/v1/countries-slim-3',
+    remoteUrl: 'https://raw.githubusercontent.com/lukes/ISO-3166-Countries-with-Regional-Codes/master/slim-3/slim-3.csv',
+  },
 ];
 
 function initApiProxyRoutes(router) {
