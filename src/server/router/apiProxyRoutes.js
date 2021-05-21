@@ -34,6 +34,10 @@ const apiProxyRoutes = [
     url: '/api/v1/countries-slim-3',
     remoteUrl: 'https://raw.githubusercontent.com/lukes/ISO-3166-Countries-with-Regional-Codes/master/slim-3/slim-3.csv',
   },
+  {
+    url: '/api/v1/covid-data',
+    remoteUrl: 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv',
+  },
 ];
 
 function initApiProxyRoutes(router) {

@@ -5,9 +5,9 @@ import {
   Route,
 } from 'react-router-dom';
 
-import {Header} from './Header';
-import {ColorPie} from './pages/ColorPie';
-import {BarChart} from './pages/BarChart';
+import {Header} from './Header/Header.jsx';
+import {ColorPie} from './pages/ColorPie/ColorPie.jsx';
+import {BarChart} from './pages/BarChart/BarChart.jsx';
 import {Scatterplot} from './pages/Scatterplot/Scatterplot.jsx';
 import {LineChart} from './pages/LineChart/LineChart.jsx';
 import {WorldMap} from './pages/WorldMap/WorldMap.jsx';
@@ -15,6 +15,7 @@ import {NotFound} from './pages/NotFound/NotFound.jsx';
 import {MenuPage} from './pages/MenuPage/MenuPage.jsx';
 import {MissingMigrants} from './pages/MissingMigrants/MissingMigrants.jsx';
 import {ChoroplethMap} from './pages/ChoroplethMap/ChoroplethMap.jsx';
+import {CovidChart} from './pages/CovidChart/CovidChart.jsx';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/menu-page" component={MenuPage} />
         <Route path="/missing-migrants" component={MissingMigrants} />
         <Route path="/choropleth-map" component={ChoroplethMap} />
+        <Route path="/covid-chart" component={CovidChart} />
         <Route path="/not-found" component={NotFound} />
       </Switch>
     </Router>

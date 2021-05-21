@@ -7,11 +7,11 @@ import {
 } from 'd3';
 
 import {ChartPage} from '../../layout/ChartPage.jsx';
-import {useData} from './useData';
-import {AxisBottom} from './AxisBottom';
-import {AxisLeft} from './AxisLeft';
+import {useData} from './useData.js';
+import {AxisBottom} from './AxisBottom.jsx';
+import {AxisLeft} from './AxisLeft.jsx';
 import classes from './LineChart.scss';
-import {Marks} from './Marks';
+import {Marks} from './Marks.jsx';
 
 const width = 960;
 const height = 500;

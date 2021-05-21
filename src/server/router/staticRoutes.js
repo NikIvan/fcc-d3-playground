@@ -14,6 +14,7 @@ const staticRoutes = [
   '/menu-page',
   '/missing-migrants',
   '/choropleth-map',
+  '/covid-chart',
 ];
 
 function initStaticRoutes(router) {

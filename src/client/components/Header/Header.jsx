@@ -46,6 +46,11 @@ function Header() {
         activeClassName={classes.navLinkActive}
         to="/choropleth-map"
       >Choropleth map</NavLink>
+    <NavLink
+        className={classes.navLink}
+        activeClassName={classes.navLinkActive}
+        to="/covid-chart"
+      >Covid chart</NavLink>
     </div>
   );
 }
