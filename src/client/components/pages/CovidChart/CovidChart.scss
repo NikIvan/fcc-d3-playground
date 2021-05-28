@@ -1,7 +1,19 @@
 .chart path {
   fill: none;
+  stroke: #aaa;
+  stroke-width: 1px;
+}
+
+.chart path.country,
+.chart path.activeCountry {
+  stroke-width: 2px;
+}
+
+.chart path.voronoiCell {
+}
+
+.chart path.activeCountry {
   stroke: black;
-  stroke-width: 4px;
 }
 
 .markerLine {
@@ -15,7 +27,7 @@
   }
 
   :global(.tick) line {
-    color: #bbbbbb;
+    color: #c1c1c1;
   }
 
   :global(.tick) text {
