@@ -13,9 +13,9 @@ const groupDataByCountry = (rawData) => {
   const dates = getDates(rawData);
   const latestData = dates[dates.length - 1];
 
-  const data = rawData.filter((countryData) => {
-    return countryData[STATE_FIELD] === '' && countryData[latestData] > 5000;
-  });
+  const filterOptions = (countryData) => countryData[STATE_FIELD] === '' && countryData[latestData] > 5000;
+
+  const data = rawData.filter(filterOptions);
 
   return data.reduce((acc, countryData) => {
     const deathsByDateByCountry = dates.map((date) => ({
@@ -50,7 +50,6 @@ export const useCovidData = () => {
       try {
         setIsDataLoading(true);
         remoteData = await csv(remoteUrl);
-        setIsDataLoading(false);
       } catch (e) {
         console.error(`Cannot get covid data: ${e.message}`);
       }
@@ -58,6 +57,7 @@ export const useCovidData = () => {
       const dataByCountry = groupDataByCountry(remoteData);
 
       setData(dataByCountry);
+      setIsDataLoading(false);
 
       setMaxDeaths(getMaxDeathsByCountry(dataByCountry));
     }

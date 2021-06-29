@@ -7,7 +7,7 @@ function CovidChart() {
   const {data, isDataLoading, maxDeaths} = useCovidData();
   let content;
 
-  if (isDataLoading === 0) {
+  if (isDataLoading) {
     content = (<div>Loading...</div>);
   } else if (data.length === 0) {
     content = (<div>No data</div>);

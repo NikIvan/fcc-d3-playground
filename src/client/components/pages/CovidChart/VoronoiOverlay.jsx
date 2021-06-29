@@ -1,6 +1,7 @@
 import React, {useMemo} from 'react';
 import PropTypes from 'prop-types';
 import {Delaunay} from 'd3';
+import {debounce} from 'underscore';
 
 import classes from './CovidChart.scss';
 
@@ -11,16 +12,15 @@ const VoronoiOverlay = ({
   data,
   handleVoronoiHover,
 }) => useMemo(() => {
-  console.log('memoizing');
   const points = data.map((d) => [lineGenerator.x()(d), lineGenerator.y()(d)]);
   const delaunay = Delaunay.from(points);
   const voronoi = delaunay.voronoi([0, 0, width, height]);
 
-  const onMouseEnter = (event) => {
+  const onMouseEnter = debounce((event) => {
     const index = event.target.getAttribute('data-index');
     const el = data[index];
     handleVoronoiHover(el);
-  };
+  }, 50);
 
   return (
     <g className={classes.voronoi}>

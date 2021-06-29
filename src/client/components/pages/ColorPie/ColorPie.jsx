@@ -22,7 +22,6 @@ function ColorPie() {
   useEffect(() => {
     async function getColors() {
       const data = await csv(colorsUrl);
-      console.dir(data);
       // const data = await response.text();
       setColors(data);
     }

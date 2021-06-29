@@ -7,7 +7,7 @@ import {
 
 import classes from './CovidChart.scss';
 
-function YAxis({yScale, width}) {
+const YAxis = ({yScale, width}) => {
   const ref = useRef();
 
   useEffect(() => {
@@ -15,11 +15,11 @@ function YAxis({yScale, width}) {
 
     const yAxis = axisLeft(yScale)
       .tickSize(-width)
-      .ticks(12, '~s')
-      .tickPadding(8);
+      .tickPadding(8)
+      .ticks(10, '~s');
 
     yAxisG.call(yAxis);
-  }, []);
+  }, [yScale, width]);
 
   return (
     <g
@@ -27,7 +27,7 @@ function YAxis({yScale, width}) {
       ref={ref}
     />
   );
-}
+};
 
 YAxis.propTypes = {
   yScale: PropTypes.func.isRequired,

@@ -1,6 +1,6 @@
 .chart path {
   fill: none;
-  stroke: #aaa;
+  stroke: #999;
   stroke-width: 1px;
 }
 
@@ -10,6 +10,9 @@
 }
 
 .chart path.voronoiCell {
+  pointer-events: all;
+  fill: none;
+  stroke: none;
 }
 
 .chart path.activeCountry {

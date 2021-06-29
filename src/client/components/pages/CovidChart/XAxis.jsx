@@ -21,7 +21,7 @@ function XAxis({xScale, height, xAxisFormatter}) {
       .tickPadding(8);
 
     xAxisG.call(xAxis);
-  }, []);
+  }, [xScale, height, xAxisFormatter]);
 
   return (
     <g
