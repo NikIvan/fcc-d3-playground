@@ -7,13 +7,17 @@ const parseDay = timeParse('%m/%d/%y');
 const STATE_FIELD = 'Province/State';
 const COUNTRY_FIELD = 'Country/Region';
 
+const dataInitialState = [];
+const maxDeathsInitialState = [];
+const middleDateInitialState = new Date();
+
 const getDates = (rawData) => rawData.columns.slice(4);
 
 const groupDataByCountry = (rawData) => {
   const dates = getDates(rawData);
-  const latestData = dates[dates.length - 1];
+  const latestDate = dates[dates.length - 1];
 
-  const filterOptions = (countryData) => countryData[STATE_FIELD] === '' && countryData[latestData] > 5000;
+  const filterOptions = (countryData) => countryData[STATE_FIELD] === '' && countryData[latestDate] > 5000;
 
   const data = rawData.filter(filterOptions);
 
@@ -35,13 +39,21 @@ const groupDataByCountry = (rawData) => {
 const getMaxDeathsByCountry = (data) => data
   .map((countryData) => countryData[countryData.length - 1]);
 
-const dataInitialState = [];
-const maxDeathsInitialState = [];
+const getMiddleDate = (rawData) => {
+  const dates = getDates(rawData);
+  const firstDate = parseDay(dates[0]);
+  const lastDate = parseDay(dates[dates.length - 1]);
+
+  return (
+    new Date((lastDate.getTime() + firstDate.getTime()) / 2)
+  );
+};
 
 export const useCovidData = () => {
   const [data, setData] = useState(dataInitialState);
   const [isDataLoading, setIsDataLoading] = useState(false);
-  const [maxDeaths, setMaxDeaths] = useState(maxDeathsInitialState);
+  const [maxDeathsPerCountry, setMaxDeathsPerCountry] = useState(maxDeathsInitialState);
+  const [middleDate, setMiddleDate] = useState(middleDateInitialState);
 
   useEffect(() => {
     async function getData() {
@@ -59,11 +71,17 @@ export const useCovidData = () => {
       setData(dataByCountry);
       setIsDataLoading(false);
 
-      setMaxDeaths(getMaxDeathsByCountry(dataByCountry));
+      setMaxDeathsPerCountry(getMaxDeathsByCountry(dataByCountry));
+      setMiddleDate(getMiddleDate(remoteData));
     }
 
     getData();
   }, []);
 
-  return {data, isDataLoading, maxDeaths};
+  return {
+    data,
+    isDataLoading,
+    maxDeathsPerCountry,
+    middleDate,
+  };
 };

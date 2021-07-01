@@ -20,7 +20,7 @@ const VoronoiOverlay = ({
     const index = event.target.getAttribute('data-index');
     const el = data[index];
     handleVoronoiHover(el);
-  }, 50);
+  }, 20);
 
   return (
     <g className={classes.voronoi}>

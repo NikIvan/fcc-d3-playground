@@ -14,6 +14,7 @@ import {YAxis} from './YAxis.jsx';
 
 import classes from './CovidChart.scss';
 import {VoronoiOverlay} from './VoronoiOverlay.jsx';
+import {Tooltip} from './Tooltip.jsx';
 import {flattenArray} from '../../../utils.js';
 
 const width = 800;
@@ -36,7 +37,7 @@ const xAxisFormatter = timeFormat('%b %y');
 
 const epsilon = 1;
 
-const LineChart = ({data, maxDeaths}) => {
+const LineChart = ({data, maxDeathsPerCountry, middleDate}) => {
   const [activeRow, setActiveRow] = useState();
   const allData = useMemo(() => flattenArray(data), [data]);
 
@@ -45,12 +46,17 @@ const LineChart = ({data, maxDeaths}) => {
     .range([0, innerWidth]), [data]);
 
   const yScale = useMemo(() => scaleLog()
-    .domain([epsilon, max(maxDeaths, yValue)])
-    .range([innerHeight, 0]), [maxDeaths]);
+    .domain([epsilon, max(maxDeathsPerCountry, yValue)])
+    .range([innerHeight, 0]), [maxDeathsPerCountry]);
 
   const lineGenerator = useMemo(() => line()
     .x((d) => xScale(xValue(d)))
     .y((d) => yScale(epsilon + yValue(d))), [xScale, yScale]);
+
+  const middlePointDeaths = useMemo(
+    () => lineGenerator.y()({totalDeaths: 1}) / 2,
+    [lineGenerator]
+  );
 
   const handleVoronoiHover = useCallback(setActiveRow, []);
 
@@ -84,11 +90,23 @@ const LineChart = ({data, maxDeaths}) => {
                 className={classes.activeCountry}
                 d={lineGenerator(data.find((d) => d.countryName === activeRow.countryName))}
               />
-              <circle
-                cx={lineGenerator.x()(activeRow)}
-                cy={lineGenerator.y()(activeRow)}
-                r={4}
-              />
+              <g
+                transform={`translate(${lineGenerator.x()(activeRow)}, ${lineGenerator.y()(activeRow)})`}
+              >
+                <circle r={4} />
+                <Tooltip
+                  className={classes.tooltipBg}
+                  activeRow={activeRow}
+                  middleDate={middleDate}
+                  isOnTop={lineGenerator.y()(activeRow) > middlePointDeaths}
+                />
+                <Tooltip
+                  className={classes.tooltip}
+                  activeRow={activeRow}
+                  middleDate={middleDate}
+                  isOnTop={lineGenerator.y()(activeRow) > middlePointDeaths}
+                />
+              </g>
             </>
           ) : null
         }
@@ -112,7 +130,8 @@ const LineChart = ({data, maxDeaths}) => {
 
 LineChart.propTypes = {
   data: PropTypes.array.isRequired,
-  maxDeaths: PropTypes.array.isRequired,
+  maxDeathsPerCountry: PropTypes.array.isRequired,
+  middleDate: PropTypes.shape(new Date()).isRequired,
 };
 
 export {LineChart};

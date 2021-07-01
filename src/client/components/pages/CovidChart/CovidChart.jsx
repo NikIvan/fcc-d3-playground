@@ -4,7 +4,13 @@ import {useCovidData} from './useCovidData.js';
 import {ChartPage} from '../../layout/ChartPage.jsx';
 
 function CovidChart() {
-  const {data, isDataLoading, maxDeaths} = useCovidData();
+  const {
+    data,
+    isDataLoading,
+    maxDeathsPerCountry,
+    middleDate,
+  } = useCovidData();
+
   let content;
 
   if (isDataLoading) {
@@ -15,7 +21,8 @@ function CovidChart() {
     content = (
       <LineChart
         data={data}
-        maxDeaths={maxDeaths}
+        maxDeathsPerCountry={maxDeathsPerCountry}
+        middleDate={middleDate}
       />
     );
   }
